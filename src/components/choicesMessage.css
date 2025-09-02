@@ -1,0 +1,75 @@
+/* src/components/choicesMessage.css */
+.choicesMessageContainer {
+    margin-bottom: 10px;
+    clear: both;
+}
+
+.choicesMessageBubble {
+    min-width: 50px;
+    max-width: 80%;
+    width: -webkit-fit-content;
+    background-color: #e0d1bf; /* A slightly darker beige for prompts */
+    border-radius: 18px;
+    margin: 1px 0 10px 0;
+    padding: 12px 16px;
+    float: left;
+}
+
+.choicesMessageText {
+    color: #333;
+    margin: 0px;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.choicesButtonContainer {
+    clear: both;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 10px 0;
+    max-width: 100%;
+}
+
+.choiceButton {
+    background: white;
+    border: 1px solid #e0d1bf;
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    display: flex; /* For icon alignment */
+    align-items: center;
+    gap: 12px;
+}
+
+.choiceButton:hover:not(:disabled) {
+    border-color: #007bff; /* BRAND BLUE */
+    background-color: #f8faff;
+}
+
+.choiceButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #f0f0f0;
+}
+
+.choiceButton.selected {
+    background-color: #007bff; /* BRAND BLUE */
+    border-color: #007bff;
+    color: white;
+}
+
+.choicesMessageSender {
+    color: #a09a93;
+    margin: 5px 0 0 10px;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: left;
+    clear: both;
+}

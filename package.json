@@ -1,0 +1,53 @@
+{
+  "homepage": ".",
+  "name": "messagingforweb-sample-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "emoji-picker-react": "^4.13.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.2.1",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+  "extends": [
+    "react-app",
+    "react-app/jest"
+  ],
+  "rules": {
+    "no-unused-vars": "warn",
+    "react-hooks/exhaustive-deps": "off"
+  }
+},
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "description": "A repository holding a sample app created using React JS library to demonstrate Messaging for In-App and Web Public (aka v2.0) REST APIs.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://git.soma.salesforce.com/embedded-service-for-web/messagingforweb-sample-app.git"
+  },
+  "author": "Salesforce Embedded Service for Web",
+  "license": ""
+}

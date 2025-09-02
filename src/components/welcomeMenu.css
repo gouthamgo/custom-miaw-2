@@ -1,0 +1,229 @@
+/* src/components/welcomeMenu.css */
+
+.welcomeMenuContainer {
+    width: 370px;
+    height: 600px;
+    box-sizing: border-box;
+    padding: 24px;
+    background-color: #f5e8d8;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.welcomeHeader h2 {
+    margin: 0;
+    font-weight: 500;
+    font-size: 16px;
+    color: #333;
+}
+
+.welcomeHeader h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #111;
+    margin: 4px 0 24px 0;
+}
+
+.welcomeOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+.optionButton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 12px 0;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 16px;
+    cursor: pointer;
+    color: #333;
+}
+
+.questionsCard {
+    padding: 8px 16px;
+}
+
+.questionsCard .optionButton {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 16px 8px;
+}
+
+.questionsCard .optionButton:last-child {
+    border-bottom: none;
+}
+
+.optionIcon {
+    margin-right: 16px;
+    color: #555;
+    flex-shrink: 0;
+}
+
+.optionText {
+    flex-grow: 1;
+    color: black;
+    font-size: 15px;
+}
+
+.arrow {
+    color: #aaa;
+    font-weight: bold;
+}
+
+.chatCard, .trackCard {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+}
+
+.chatInfo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-grow: 1;
+}
+
+.chatIcon {
+    background-color: #f76b93; 
+    color: white;
+    border-radius: 8px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.chatText {
+    display: flex;
+    flex-direction: column;
+}
+
+.chatText strong {
+    color: #111;
+    font-size: 16px;
+}
+
+.chatText span {
+    color: #555;
+    font-size: 14px;
+}
+
+.sendIcon {
+    fill: #555;
+}
+
+.previousConversationLink {
+    text-align: center;
+    margin-top: auto;
+    padding-top: 20px;
+    color: #555;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+
+/* APPEND THIS TO THE END of src/components/welcomeMenu.css */
+
+.answerView {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.backButton {
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    margin-bottom: 24px;
+}
+
+.answerView h3 {
+    font-size: 18px;
+    color: #111;
+    margin: 0 0 12px 0;
+}
+
+.answerView p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+}
+
+.answerActions {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #e0d1bf;
+}
+
+.answerActions p {
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.actionButton {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-bottom: 10px;
+}
+
+.actionButton:first-of-type {
+    background-color: white;
+    border: 1px solid #e0d1bf;
+    color: #333;
+}
+
+.actionButton:first-of-type:hover {
+    background-color: #f9f9f9;
+}
+
+.actionButton:last-of-type {
+    background-color: #007bff; /* BRAND BLUE */
+    border: 1px solid #007bff;
+    color: white;
+}
+
+.actionButton:last-of-type:hover {
+    opacity: 0.9;
+}

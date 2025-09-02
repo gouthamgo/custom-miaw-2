@@ -1,0 +1,60 @@
+/* src/components/messagingInputFooter.css */
+.messagingFooter {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    font-family: inherit;
+    background-color: #ffffff;
+    border-top: 1px solid #e0d1bf;
+    padding: 0 10px;
+    box-sizing: border-box;
+    flex-shrink: 0; /* Prevents footer from shrinking */
+}
+
+.messagingFooter textarea {
+    flex-grow: 1;
+    height: 40px;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    resize: none;
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 20px;
+    background-color: #faf6f0;
+}
+
+.messagingFooter textarea:focus {
+    outline: none;
+    border-color: #007bff; /* BRAND BLUE */
+    background-color: #fff;
+}
+
+.sendButton {
+    background: transparent;
+    border: 0;
+    margin-left: 10px;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.sendButtonIcon{
+    transform: scale(1.5);
+    fill: #007bff; /* BRAND BLUE */
+    transition: opacity 0.2s;
+}
+
+.sendButton:hover:not(:disabled) .sendButtonIcon {
+    opacity: 0.7;
+}
+
+.sendButton:disabled .sendButtonIcon {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.messagingInputTextarea:disabled {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+}

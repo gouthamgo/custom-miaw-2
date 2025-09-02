@@ -1,0 +1,16 @@
+/* src/components/messagingWindow.css */
+.messagingWindow {
+    z-index: 9999999999;
+    background-color: #f5e8d8; /* The main beige background */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
+    width: 370px;
+    height: 600px;
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column;
+    overflow: hidden; /* Important for keeping rounded corners */
+}
+
+.messagingWindow[class~="hide"] {
+    display: none;
+}
