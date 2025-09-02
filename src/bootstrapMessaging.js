@@ -7,7 +7,8 @@ import { useState, useEffect } from "react";
 // Import children components to render.
 import MessagingWindow from "./components/messagingWindow";
 import MessagingButton from "./components/messagingButton";
-import WelcomeMenu from "./components/welcomeMenu"; // Import the WelcomeMenu component
+import WelcomeMenu from "./components/welcomeMenu";
+import EmailPrechat from "./components/EmailPrechat";
 
 import './bootstrapMessaging.css';
 
@@ -27,8 +28,9 @@ export default function BootstrapMessaging() {
     let [showMessagingButtonSpinner, setShowMessagingButtonSpinner] = useState(false);
     let [isExistingConversation, setIsExistingConversation] = useState(false);
 
-    // --- NEW STATE: Controls which view is visible inside the window ---
     const [currentView, setCurrentView] = useState('welcome');
+    const [email, setEmail] = useState('');
+    const country = "AU"; 
 
     useEffect(() => {
         const storage = determineStorageType();
@@ -62,18 +64,13 @@ export default function BootstrapMessaging() {
                 setShowMessagingButton(true);
                 setShouldDisableMessagingButton(true);
                 setShouldShowMessagingWindow(true);
-                // If we have an existing conversation, we go straight to chat
-                setCurrentView('chat'); 
+                setCurrentView('chat');
             } else {
                 setIsExistingConversation(false);
             }
         } else {
             setIsExistingConversation(false);
         }
-
-        return () => {
-            showMessagingWindow(false);
-        };
     }, []);
 
     function initializeMessagingClient(ord_id, deployment_dev_name, messaging_url) {
@@ -83,11 +80,30 @@ export default function BootstrapMessaging() {
         storeSalesforceMessagingUrl(messaging_url || messagingURL);
     }
     
-    // --- Helper functions (isValidOrganizationId, etc.) remain the same ---
-    function isValidOrganizationId(id) { return typeof id === "string" && (id.length === 18 || id.length === 15) && id.substring(0, 3) === APP_CONSTANTS.ORGANIZATION_ID_PREFIX; }
-    function isValidDeploymentDeveloperName(name) { return typeof name === "string" && name.length > 0; }
-    function isSalesforceUrl(url) { try { return typeof url === "string" && url.length > 0 && url.slice(-19) === APP_CONSTANTS.SALESFORCE_MESSAGING_SCRT_URL; } catch (err) { return false; } }
-    function isValidUrl(url) { try { const urlToValidate = new URL(url); return isSalesforceUrl(url) && urlToValidate.protocol === APP_CONSTANTS.HTTPS_PROTOCOL; } catch (err) { return false; } }
+    function isValidOrganizationId(id) {
+        return typeof id === "string" && (id.length === 18 || id.length === 15) && id.substring(0, 3) === APP_CONSTANTS.ORGANIZATION_ID_PREFIX;
+    }
+
+    function isValidDeploymentDeveloperName(name) {
+        return typeof name === "string" && name.length > 0;
+    }
+
+    function isSalesforceUrl(url) {
+        try {
+            return typeof url === "string" && url.length > 0 && url.slice(-19) === APP_CONSTANTS.SALESFORCE_MESSAGING_SCRT_URL;
+        } catch (err) {
+            return false;
+        }
+    }
+
+    function isValidUrl(url) {
+        try {
+            const urlToValidate = new URL(url);
+            return isSalesforceUrl(url) && urlToValidate.protocol === APP_CONSTANTS.HTTPS_PROTOCOL;
+        } catch (err) {
+            return false;
+        }
+    }
 
     function handleDeploymentDetailsFormSubmit(evt) {
         if (evt) {
@@ -102,7 +118,9 @@ export default function BootstrapMessaging() {
         }
     }
 
-    function shouldDisableFormSubmitButton() { return (orgId && orgId.length === 0) || (deploymentDevName && deploymentDevName.length === 0) || (messagingURL && messagingURL.length === 0); }
+    function shouldDisableFormSubmitButton() {
+        return (!orgId || orgId.length === 0) || (!deploymentDevName || deploymentDevName.length === 0) || (!messagingURL || messagingURL.length === 0);
+    }
 
     function handleMessagingButtonClick(evt) {
         if (evt) {
@@ -117,8 +135,8 @@ export default function BootstrapMessaging() {
             setShouldDisableMessagingButton(false);
             setShowMessagingButtonSpinner(false);
             setShowMessagingButton(false);
-            // --- MODIFICATION: Reset view to welcome when window is closed ---
             setCurrentView('welcome');
+            setEmail('');
         }
     }
 
@@ -126,11 +144,19 @@ export default function BootstrapMessaging() {
         setShouldDisableMessagingButton(isReady);
         setShowMessagingButtonSpinner(!isReady);
     }
+    
+    const handleStartPrechat = () => {
+        setCurrentView('prechat');
+    };
 
-    // --- NEW FUNCTION: This transitions from welcome to the chat view ---
-    const handleStartChat = () => {
-        // We set the view to 'chat' which will trigger the conditional render below
+    const handlePrechatSubmit = (submittedEmail) => {
+        console.log(`Email collected: ${submittedEmail}`);
+        setEmail(submittedEmail);
         setCurrentView('chat');
+    };
+    
+    const handleGoBack = () => {
+        setCurrentView('welcome');
     };
 
     return (
@@ -139,12 +165,31 @@ export default function BootstrapMessaging() {
             <div className="deploymentDetailsForm">
                 <h4>Input your Embedded Service (Custom Client) deployment details below</h4>
                 <label>Organization ID</label>
-                <input type="text" value={orgId || ""} onChange={e => setOrgId(e.target.value.trim())} disabled={shouldShowMessagingButton}></input>
+                <input
+                    type="text"
+                    value={orgId || ""}
+                    onChange={e => setOrgId(e.target.value.trim())}
+                    disabled={shouldShowMessagingButton}>
+                </input>
                 <label>Developer Name</label>
-                <input type="text" value={deploymentDevName || ""} onChange={e => setDeploymentDevName(e.target.value.trim())} disabled={shouldShowMessagingButton}></input>
+                <input
+                    type="text"
+                    value={deploymentDevName || ""}
+                    onChange={e => setDeploymentDevName(e.target.value.trim())}
+                    disabled={shouldShowMessagingButton}>
+                </input>
                 <label>URL</label>
-                <input type="text" value={messagingURL || ""} onChange={e => setMessagingURL(e.target.value.trim())} disabled={shouldShowMessagingButton}></input>
-                <button className="deploymentDetailsFormSubmitButton" onClick={handleDeploymentDetailsFormSubmit} disabled={shouldDisableFormSubmitButton()}>
+                <input
+                    type="text"
+                    value={messagingURL || ""}
+                    onChange={e => setMessagingURL(e.target.value.trim())}
+                    disabled={shouldShowMessagingButton}>
+                </input>
+                <button
+                    className="deploymentDetailsFormSubmitButton"
+                    onClick={handleDeploymentDetailsFormSubmit}
+                    disabled={shouldDisableFormSubmitButton()}
+                >
                     Submit
                 </button>
             </div>
@@ -153,18 +198,28 @@ export default function BootstrapMessaging() {
                     clickHandler={handleMessagingButtonClick}
                     disableButton={shouldDisableMessagingButton}
                     showSpinner={showMessagingButtonSpinner} />}
+            
             {shouldShowMessagingWindow &&
                 <Draggable intitialPosition={{ x: 1000, y: 500 }}>
-                    {/* --- THIS IS THE KEY LOGIC CHANGE --- */}
-                    {currentView === 'welcome' ? (
-                        // If view is 'welcome', show the WelcomeMenu and pass it the function to start the chat
-                        <WelcomeMenu onStartConversation={handleStartChat} />
-                    ) : (
-                        // Otherwise, show the main MessagingWindow
+                    {currentView === 'welcome' && (
+                        <WelcomeMenu onStartConversation={handleStartPrechat} />
+                    )}
+
+                    {currentView === 'prechat' && (
+                        <EmailPrechat
+                            onPrechatSubmit={handlePrechatSubmit}
+                            onGoBack={handleGoBack}
+                        />
+                    )}
+
+                    {currentView === 'chat' && (
                         <MessagingWindow
                             isExistingConversation={isExistingConversation}
                             showMessagingWindow={showMessagingWindow}
-                            deactivateMessagingButton={appUiReady} />
+                            deactivateMessagingButton={appUiReady}
+                            country={country}
+                            email={email}
+                        />
                     )}
                 </Draggable>
             }
