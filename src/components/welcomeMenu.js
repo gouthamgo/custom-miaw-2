@@ -85,7 +85,7 @@ export default function WelcomeMenu({ onStartConversation }) {
             <span className="arrow">{'>'}</span>
           </button>
           <button className="optionButton" onClick={() => handleQuestionClick('Chirstmas')}>
-            <span>What for Christmas?</span>
+            <span>What to buy for Christmas?</span>
             <span className="arrow">{'>'}</span>
           </button>
         </div>
@@ -102,7 +102,7 @@ export default function WelcomeMenu({ onStartConversation }) {
           <div className="chatInfo">
             <div className="chatIcon">TS</div>
             <div className="chatText">
-              <strong>TS</strong>
+              <strong>Taking Shape</strong>
               <span>Chat with the team</span>
             </div>
           </div>
